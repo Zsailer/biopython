@@ -446,7 +446,7 @@ _FormatToWriter = {"fasta": FastaIO.FastaWriter,
 _BinaryFormats = ["sff", "sff-trim", "abi", "abi-trim", "seqxml"]
 
 
-def write(sequences, handle, format):
+def write(sequences, handle, format, **kwargs):
     """Write complete set of sequences to a file.
 
     Arguments:
@@ -489,7 +489,7 @@ def write(sequences, handle, format):
         # Map the file format to a writer class
         if format in _FormatToWriter:
             writer_class = _FormatToWriter[format]
-            count = writer_class(fp).write_file(sequences)
+            count = writer_class(fp, **kwargs).write_file(sequences)
         elif format in AlignIO._FormatToWriter:
             # Try and turn all the records into a single alignment,
             # and write that using Bio.AlignIO
